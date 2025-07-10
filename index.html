@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UMD Gymnastics Club</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="shellIcon.png">
+</head>
+<body>
+  <div style="display: flex; justify-content: center;padding-bottom: 8px;">
+    <img src="clubLogo.png" alt="UMD Club Gymnastics" style="width: 20%;">
+  </div> 
+  <nav id="navbar">
+    <ul>
+      <li><a onclick="showPage('home', '#home')" class="active">Home</a></li>
+      <li><a onclick="showPage('about', '#about')">About</a></li>
+      <li><a onclick="showPage('schedule', '#schedule')">Schedule</a></li>
+      <li><a onclick="showPage('fundraising', '#fundraising')">Fundraising</a></li>
+      <li><a onclick="showPage('contact', '#contact')">Contact</a></li>
+      <div class="nav-highlight" id="navHighlight"></div>
+    </ul>
+  </nav>
+
+
+  <div id="main-content">
+    <div id="home" class="page-block active">
+      <h1>Welcome to the UMD Gymnastics Club</h1>
+      <p>This is the official website for the UMD Gymnastics Club. Use the navigation above to learn more.</p>
+    </div>
+
+    <div id="about" class="page-block">
+      <h2>About Us</h2>
+      <p>We are a student-run gymnastics club at the University of Maryland, open to all skill levels.</p>
+    </div>
+
+    <div id="schedule" class="page-block">
+      <h2>Schedule</h2>
+      <p>Find our practice and event schedule here.</p>
+    </div>
+
+    <div id="fundraising" class="page-block">
+      <h2>Fundraising</h2>
+      <p>Support our club through various fundraising efforts and initiatives.</p>
+    </div>
+
+    <div id="contact" class="page-block">
+      <h2>Contact Us</h2>
+      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSehXg67rEtAZT8QI_XoWeUQQmRuoxP6Pubpm9xH2a_-w3586A/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+    </div>
+  </div>
+
+  <script>
+    function showPage(pageId, path) {
+      document.querySelectorAll('.page-block').forEach(block => {
+        if (block.id === pageId) {
+          block.style.display = 'block';
+          setTimeout(() => block.classList.add('active'), 10);
+        } else {
+          block.classList.remove('active');
+          block.style.display = 'none';
+        }
+      });
+
+      document.querySelectorAll('#navbar a').forEach(link => link.classList.remove('active'));
+      const clicked = Array.from(document.querySelectorAll('#navbar a')).find(link => link.textContent.toLowerCase() === pageId);
+      if (clicked) clicked.classList.add('active');
+
+      moveHighlight(clicked);
+      // Only update the hash, not the full path
+      if (window.location.hash !== path) {
+        history.pushState({ pageId }, '', path);
+      }
+    }
+
+    function moveHighlight(targetLink) {
+      const highlight = document.getElementById('navHighlight');
+      if (!targetLink || !highlight) return;
+      // Use offsetLeft/offsetWidth for better responsiveness
+      const li = targetLink.parentElement;
+      const ul = li.parentElement;
+      highlight.style.width = `${targetLink.offsetWidth}px`;
+      highlight.style.left = `${targetLink.offsetLeft}px`;
+    }
+
+    // Reposition highlight on window resize
+    window.addEventListener('resize', () => {
+      const activeLink = document.querySelector('#navbar a.active');
+      if (activeLink) moveHighlight(activeLink);
+    });
+
+    window.onpopstate = (event) => {
+      const page = event.state?.pageId || 'home';
+      showPage(page, window.location.hash || '#home');
+    };
+
+    window.addEventListener('load', () => {
+      const hash = window.location.hash || '#home';
+      const routes = {
+        '#home': 'home',
+        '#about': 'about',
+        '#schedule': 'schedule',
+        '#fundraising': 'fundraising',
+        '#contact': 'contact'
+      };
+      const page = routes[hash] || 'home';
+      showPage(page, hash);
+
+      const activeLink = document.querySelector('#navbar a.active');
+      if (activeLink) moveHighlight(activeLink);
+    });
+  </script>
+
+</body>
+</html>
