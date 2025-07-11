@@ -5,15 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UMD Gymnastics Club</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="shellIcon.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="shellIcon.png">
 </head>
 <body>
-  <div style="display: flex; justify-content: center;padding-bottom: 8px;">
+
+  <!-- Logo -->
+  <div style="display: flex; justify-content: center; padding-bottom: 8px;">
     <img src="clubLogo.png" alt="UMD Club Gymnastics" style="width: 20%;">
   </div> 
+
+  <!-- Hamburger and overlay -->
+  <button id="navToggle" class="hamburger" aria-label="Toggle navigation">&#9776;</button>
+  <div id="overlay" class="overlay"></div>
+
+  <!-- Desktop Navbar -->
   <nav id="navbar">
     <ul>
       <li><a onclick="showPage('home', '#home')" class="active">Home</a></li>
@@ -25,34 +33,34 @@
     </ul>
   </nav>
 
+  <!-- Sidebar container (empty, JS will inject clone here) -->
+  <div id="mobileNavContainer"></div>
 
+  <!-- Page Content -->
   <div id="main-content">
     <div id="home" class="page-block active">
       <h1>Welcome to the UMD Gymnastics Club</h1>
       <p>This is the official website for the UMD Gymnastics Club. Use the navigation above to learn more.</p>
     </div>
-
     <div id="about" class="page-block">
       <h2>About Us</h2>
       <p>We are a student-run gymnastics club at the University of Maryland, open to all skill levels.</p>
     </div>
-
     <div id="schedule" class="page-block">
       <h2>Schedule</h2>
       <p>Find our practice and event schedule here.</p>
     </div>
-
     <div id="fundraising" class="page-block">
       <h2>Fundraising</h2>
       <p>Support our club through various fundraising efforts and initiatives.</p>
     </div>
-
     <div id="contact" class="page-block">
       <h2>Contact Us</h2>
       <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSehXg67rEtAZT8QI_XoWeUQQmRuoxP6Pubpm9xH2a_-w3586A/viewform?embedded=true" width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
     </div>
   </div>
 
+  <!-- Scripts -->
   <script>
     function showPage(pageId, path) {
       document.querySelectorAll('.page-block').forEach(block => {
@@ -70,7 +78,6 @@
       if (clicked) clicked.classList.add('active');
 
       moveHighlight(clicked);
-      // Only update the hash, not the full path
       if (window.location.hash !== path) {
         history.pushState({ pageId }, '', path);
       }
@@ -79,14 +86,10 @@
     function moveHighlight(targetLink) {
       const highlight = document.getElementById('navHighlight');
       if (!targetLink || !highlight) return;
-      // Use offsetLeft/offsetWidth for better responsiveness
-      const li = targetLink.parentElement;
-      const ul = li.parentElement;
       highlight.style.width = `${targetLink.offsetWidth}px`;
       highlight.style.left = `${targetLink.offsetLeft}px`;
     }
 
-    // Reposition highlight on window resize
     window.addEventListener('resize', () => {
       const activeLink = document.querySelector('#navbar a.active');
       if (activeLink) moveHighlight(activeLink);
@@ -111,6 +114,46 @@
 
       const activeLink = document.querySelector('#navbar a.active');
       if (activeLink) moveHighlight(activeLink);
+    });
+
+    // Mobile sidebar toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const navToggle = document.getElementById('navToggle');
+      const desktopNav = document.getElementById('navbar');
+      const mobileSidebar = document.getElementById('mobileNavContainer');
+      const overlay = document.getElementById('overlay');
+
+      // Clone desktop navbar into sidebar
+      const clonedNav = desktopNav.cloneNode(true);
+      clonedNav.id = 'navbar-mobile';
+      mobileSidebar.appendChild(clonedNav);
+
+      const mobileLinks = clonedNav.querySelectorAll('a');
+
+      function closeSidebar() {
+        mobileSidebar.classList.remove('open');
+        overlay.classList.remove('show');
+        navToggle.innerHTML = '&#9776;';
+      }
+
+      navToggle.addEventListener('click', () => {
+        const isOpen = mobileSidebar.classList.contains('open');
+        if (isOpen) {
+          closeSidebar();
+        } else {
+          mobileSidebar.classList.add('open');
+          overlay.classList.add('show');
+          navToggle.innerHTML = '&#10006;';
+        }
+      });
+
+      overlay.addEventListener('click', closeSidebar);
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth <= 768) closeSidebar();
+        });
+      });
     });
   </script>
 
