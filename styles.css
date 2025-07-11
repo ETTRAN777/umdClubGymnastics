@@ -1,3 +1,15 @@
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 1.2rem 0 0.7rem 0;
+  font-size: 0.98rem;
+  color: #888;
+  background: transparent;
+  letter-spacing: 0.02em;
+  border-top: 1.5px solid #e5e7eb;
+  background: linear-gradient(to bottom, #fafbfc 80%, #f3f4f6 100%);
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
+}
 /* Hide mobile sidebar and overlay on desktop, show only on mobile */
 #mobileNavContainer,
 #overlay,
@@ -118,6 +130,51 @@ body, html {
   background-color: #f9f9f9;
   overflow-x: hidden;
 }
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card-subtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #b71c1c;
+  text-align: center;
+}
+
+.schedule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.schedule-list li {
+  margin-bottom: 0.5rem;
+}
+
+.note {
+  font-size: 0.95rem;
+  color: #666;
+  text-align: center;
+}
+
 
 /* ====================== NAVIGATION BAR ====================== */
 #navbar {
