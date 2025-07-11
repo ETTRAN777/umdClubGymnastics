@@ -41,6 +41,7 @@
     <div id="home" class="page-block active">
       <h1>Welcome to the UMD Gymnastics Club</h1>
       <p>This is the official website for the UMD Gymnastics Club. Use the navigation above to learn more.</p>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
     <div id="about" class="page-block">
       <h2>About Us</h2>
@@ -63,15 +64,18 @@
   <!-- Scripts -->
   <script>
     function showPage(pageId, path) {
+      // Remove all inline styles and active classes first
       document.querySelectorAll('.page-block').forEach(block => {
-        if (block.id === pageId) {
-          block.style.display = 'block';
-          setTimeout(() => block.classList.add('active'), 10);
-        } else {
-          block.classList.remove('active');
-          block.style.display = 'none';
-        }
+        block.classList.remove('active');
+        block.style.removeProperty('display');
       });
+
+      // Add active class to the target block
+      const target = document.getElementById(pageId);
+      if (target) {
+        target.classList.add('active');
+        target.style.removeProperty('display');
+      }
 
       document.querySelectorAll('#navbar a').forEach(link => link.classList.remove('active'));
       const clicked = Array.from(document.querySelectorAll('#navbar a')).find(link => link.textContent.toLowerCase() === pageId);
