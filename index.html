@@ -20,7 +20,11 @@
   </div>
 
   <!-- Hamburger and overlay -->
-  <button id="navToggle" class="hamburger" aria-label="Toggle navigation">&#9776;</button>
+  <button id="navToggle" class="hamburger" aria-label="Toggle navigation">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
   <div id="overlay" class="overlay"></div>
 
   <!-- Desktop Navbar -->
@@ -209,10 +213,12 @@
 
       const mobileLinks = clonedNav.querySelectorAll('a');
 
+
       function closeSidebar() {
         mobileSidebar.classList.remove('open');
         overlay.classList.remove('show');
-        navToggle.innerHTML = '&#9776;';
+        navToggle.classList.remove('open');
+        navToggle.classList.remove('animate-x');
       }
 
       navToggle.addEventListener('click', () => {
@@ -222,7 +228,10 @@
         } else {
           mobileSidebar.classList.add('open');
           overlay.classList.add('show');
-          navToggle.innerHTML = '&#10006;';
+          navToggle.classList.add('open');
+          setTimeout(() => {
+            navToggle.classList.add('animate-x');
+          }, 200); // delay matches CSS transition
         }
       });
 

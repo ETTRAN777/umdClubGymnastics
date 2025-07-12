@@ -360,19 +360,58 @@ p, li, ul {
 }
 
 /* ====================== HAMBURGER SIDEBAR (MOBILE) ====================== */
+
 #navToggle {
   display: none;
   background: none;
   border: none;
-  font-size: 2rem;
   cursor: pointer;
   padding: 10px;
   position: fixed;
   top: 10px;
   left: 10px;
   z-index: 1100;
+  width: 44px;
+  height: 44px;
   color: #b71c1c;
   /* No background or border-radius for transparency */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+#navToggle .bar {
+  display: block;
+  width: 28px;
+  height: 4px;
+  margin: 5px 0;
+  background: #b71c1c;
+  border-radius: 2px;
+  transition: transform 0.2s cubic-bezier(.4,0,.2,1), opacity 0.2s cubic-bezier(.4,0,.2,1);
+  position: relative;
+}
+
+/* Step 1: Merge top and middle bars to center, hide middle bar */
+/* Step 1: Move top bar down, bottom bar up, center bar fades out */
+#navToggle.open .bar:nth-child(1) {
+  transform: translateY(9px); /* move down to center */
+}
+#navToggle.open .bar:nth-child(2) {
+  opacity: 0;
+  /* stays in place */
+}
+#navToggle.open .bar:nth-child(3) {
+  transform: translateY(-9px); /* move up to center */
+}
+
+/* Step 2: After a short delay, rotate the two visible bars to form X */
+#navToggle.open.animate-x .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+#navToggle.open.animate-x .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
 }
 
 
