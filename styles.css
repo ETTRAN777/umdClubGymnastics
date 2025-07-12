@@ -1,9 +1,87 @@
+/* Schedule Cards Styles */
+.schedule-cards-container {
+  width: 100%;
+  max-width: 80%;
+  margin: 0 auto 2rem auto;
+  display: block;
+}
+
+.schedule-cards-container .card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  padding: 2rem;
+  margin: 0 auto 2rem auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card-subtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: #b71c1c;
+  text-align: center;
+}
+
+.schedule-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.schedule-list li {
+  margin-bottom: 0.5rem;
+}
+
+.note {
+  font-size: 0.95rem;
+  color: #666;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .schedule-cards-container {
+    max-width: 95%;
+  }
+  .schedule-cards-container .card {
+    padding: 1.2rem;
+    margin-bottom: 1.2rem;
+  }
+}
+.schedule-cards-container {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 2rem auto;
+}
+
+.schedule-cards-container .card {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .schedule-cards-container {
+    max-width: 95%;
+  }
+  .schedule-cards-container .card {
+    margin-bottom: 1.2rem;
+  }
+}
 footer {
   width: 100%;
   text-align: center;
   padding: 1.2rem 0 0.7rem 0;
   font-size: 0.98rem;
   color: #888;
+  max-height: fit-content;
   background: transparent;
   letter-spacing: 0.02em;
   border-top: 1.5px solid #e5e7eb;
@@ -143,7 +221,6 @@ body, html {
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   padding: 2rem;
-  max-width: 600px;
   margin: 0 auto;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
@@ -295,6 +372,7 @@ p, li, ul {
   left: 10px;
   z-index: 1100;
   color: #b71c1c;
+  /* No background or border-radius for transparency */
 }
 
 
