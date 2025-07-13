@@ -175,36 +175,46 @@
   <!-- Scripts -->
   <script>
     function showPage(pageId, path) {
-      // Animate out current active, hide all others
+      // Animate out only the current active block
+      const activeBlock = document.querySelector('.page-block.active');
+      // Hide all other blocks (except the one we're about to show)
       document.querySelectorAll('.page-block').forEach(block => {
-        if (block.classList.contains('active')) {
-          block.classList.remove('active');
-          block.classList.add('snap-out');
-          setTimeout(() => {
-            block.classList.remove('snap-out');
-            block.style.display = 'none';
-          }, 200); // match CSS fade-out duration
-        } else {
+        if (block !== activeBlock && block.id !== pageId) {
+          block.classList.remove('active', 'snap-out');
           block.style.display = 'none';
         }
       });
 
-      // Add active class to the target block
-      const target = document.getElementById(pageId);
-      if (target) {
-        target.style.display = 'block';
-        // Force reflow to restart animation if needed
-        void target.offsetWidth;
-        target.classList.add('active');
+      function showTargetPage() {
+        // Add active class to the target block
+        const target = document.getElementById(pageId);
+        if (target) {
+          target.style.display = 'block';
+          // Force reflow to restart animation if needed
+          void target.offsetWidth;
+          target.classList.add('active');
+        }
+
+        document.querySelectorAll('#navbar a').forEach(link => link.classList.remove('active'));
+        const clicked = Array.from(document.querySelectorAll('#navbar a')).find(link => link.textContent.toLowerCase() === pageId);
+        if (clicked) clicked.classList.add('active');
+
+        moveHighlight(clicked);
+        if (window.location.hash !== path) {
+          history.pushState({ pageId }, '', path);
+        }
       }
 
-      document.querySelectorAll('#navbar a').forEach(link => link.classList.remove('active'));
-      const clicked = Array.from(document.querySelectorAll('#navbar a')).find(link => link.textContent.toLowerCase() === pageId);
-      if (clicked) clicked.classList.add('active');
-
-      moveHighlight(clicked);
-      if (window.location.hash !== path) {
-        history.pushState({ pageId }, '', path);
+      if (activeBlock) {
+        activeBlock.classList.remove('active');
+        activeBlock.classList.add('snap-out');
+        setTimeout(() => {
+          activeBlock.classList.remove('snap-out');
+          activeBlock.style.display = 'none';
+          showTargetPage();
+        }, 200); // match CSS fade-out duration
+      } else {
+        showTargetPage();
       }
     }
 
