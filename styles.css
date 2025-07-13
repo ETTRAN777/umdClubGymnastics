@@ -88,6 +88,17 @@ footer {
   background: linear-gradient(to bottom, #fafbfc 80%, #f3f4f6 100%);
   box-shadow: 0 -2px 8px rgba(0,0,0,0.03);
 }
+
+/* Simple horizontal line to break up h3 sections */
+.section-end {
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto 2rem auto;
+  border: none;
+  border-top: 2px solid #e5e7eb;
+  height: 0;
+  background: none;
+}
 /* Hide mobile sidebar and overlay on desktop, show only on mobile */
 #mobileNavContainer,
 #overlay,
@@ -358,6 +369,27 @@ p, li, ul {
   object-fit: cover;
   margin: auto;
 }
+
+.fundraising-list {
+  list-style: disc;
+  list-style-position: outside;
+  padding-left: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.fundraising-list li {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: #333;
+}
+
+.fundraising-list li::marker {
+  color: #b71c1c; /* UMD red for the bullet */
+}
+
+
 
 /* ====================== HAMBURGER SIDEBAR (MOBILE) ====================== */
 
