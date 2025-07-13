@@ -348,15 +348,18 @@ p, li, ul {
   left: auto;
   right: auto;
   top: auto;
-  transform: translateY(40px) scale(0.98);
-  transition: opacity 0.5s cubic-bezier(.4,0,.2,1), transform 0.5s cubic-bezier(.4,0,.2,1);
+  transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
   box-sizing: border-box;
 }
 .page-block.active {
   display: block;
   opacity: 1;
-  transform: translateY(0) scale(1);
   z-index: 1;
+  transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+}
+.page-block.snap-out {
+  opacity: 0;
+  transition: opacity 0.2s cubic-bezier(.4,0,.2,1);
 }
 
 #main-content {
@@ -388,7 +391,6 @@ p, li, ul {
 .fundraising-list li::marker {
   color: #b71c1c; /* UMD red for the bullet */
 }
-
 
 
 /* ====================== HAMBURGER SIDEBAR (MOBILE) ====================== */
